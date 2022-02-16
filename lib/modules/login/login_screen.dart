@@ -6,10 +6,19 @@ import 'package:myapp/shared/components/components.dart';
 // 2. refactor
 // 3. quality
 // 4. clean Code
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   var emailController = TextEditingController();
+
   var passwordController = TextEditingController();
+
   var formKey = GlobalKey<FormState>();
+
+  bool isPassword= true;
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +63,14 @@ class LoginScreen extends StatelessWidget {
                     label: 'Password',
                     type: TextInputType.visiblePassword,
                     prefix: Icons.lock,
-                    isPassword: true,
-                    suffix: Icons.remove_red_eye,
+                    isPassword: isPassword,
+                    suffixPressed: ()
+                    {
+                      setState(() {
+                        isPassword = !isPassword;
+                      });
+                    },
+                    suffix: isPassword ? Icons.visibility:Icons.visibility_off,
                     validate: (String value) {
                       if (value.isEmpty) {
                         return 'password is too short';
