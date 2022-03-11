@@ -94,7 +94,7 @@ Widget bulidTaskItem(Map model, context) => Padding(
             onPressed: () {
               AppCubit.get(context).updateData(
                 status: 'done',
-                id: model['id'],
+                id: model["id"],
               );
             },
             icon: Icon(

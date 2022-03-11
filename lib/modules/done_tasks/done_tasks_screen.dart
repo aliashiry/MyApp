@@ -12,9 +12,8 @@ class DoneTasksScreen extends StatelessWidget {
     return BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          var tasks = AppCubit.get(context).doneTasks;
           return ListView.separated(
-            itemBuilder: (context, index) => bulidTaskItem(tasks[index], context),
+            itemBuilder: (context, index) => bulidTaskItem(AppCubit.get(context).doneTasks[index], context),
             separatorBuilder: (context, index) => Padding(
               padding: const EdgeInsetsDirectional.only(
                 start: 20.0,
@@ -25,7 +24,7 @@ class DoneTasksScreen extends StatelessWidget {
                 color: Colors.grey[300],
               ),
             ),
-            itemCount: tasks.length,
+            itemCount:  AppCubit.get(context).doneTasks.length,
           );
         });
   }

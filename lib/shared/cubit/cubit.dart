@@ -42,7 +42,7 @@ class AppCubit extends Cubit<AppStates> {
         // When creating the db, create the table
         database
             .execute(
-                'Create table tasks(Id INTEGER PRIMARY KEY,title TEXT,data TEXT , time TEXT ,status TEXT)')
+                'Create table tasks(id INTEGER PRIMARY KEY,title TEXT,data TEXT , time TEXT ,status TEXT)')
             .then((value) {
           print("Table created");
         }).catchError((error) {
@@ -72,6 +72,9 @@ class AppCubit extends Cubit<AppStates> {
         print('$value inserted successfully');
         emit(AppInsertDatabaseState());
         getDataFromDatabase(database);
+        print('New Tasks  $newTasks');
+        print('Done Tasks  $doneTasks');
+        print('Archive Tasks  $archivedTasks');
       }).catchError((error) {
         print('Error when   inserted new record ${error.toString()}');
       });
@@ -93,16 +96,19 @@ class AppCubit extends Cubit<AppStates> {
         }
         else
           archivedTasks.add(element);
-      }});
+      }
       emit(AppGetDatabaseState());
-    print('New Tasks  $newTasks');
-    print('Done Tasks  $doneTasks');
-    print('Archive Tasks  $archivedTasks');
+      print('New Tasks  $newTasks');
+      print('Done Tasks  $doneTasks');
+      print('Archive Tasks  $archivedTasks');
+    }
+    );
+
     }
 
 
   void updateData({@required status, @required id,}){
-    database.rawUpdate('UPDATE tasks SET status = "$status" WHERE id = "$id" ')
+    database.rawUpdate('UPDATE tasks SET status = "$status" WHERE id = $id ')
         .then((value) {
       emit(AppUpdateDatabaseState());
       getDataFromDatabase(database);
