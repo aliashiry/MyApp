@@ -1,3 +1,4 @@
+import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myapp/shared/components/components.dart';
@@ -11,22 +12,9 @@ class NewTasksScreen extends StatelessWidget {
     return BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          return ListView.separated(
-            itemBuilder: (context, index)
-            {
-              return bulidTaskItem(AppCubit.get(context).newTasks[index], context);
-            },
-            separatorBuilder: (context, index) => Padding(
-              padding: const EdgeInsetsDirectional.only(
-                start: 20.0,
-              ),
-              child: Container(
-                width: double.infinity,
-                height: 1.0,
-                color: Colors.grey[300],
-              ),
-            ),
-            itemCount: AppCubit.get(context).newTasks.length,
+          var tasks = AppCubit.get(context).newTasks;
+          return tasksBuilder(
+            tasks: tasks,
           );
         });
   }
